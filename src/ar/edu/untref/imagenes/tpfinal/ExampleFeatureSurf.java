@@ -1,3 +1,4 @@
+package ar.edu.untref.imagenes.tpfinal;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,7 @@ public class ExampleFeatureSurf {
 	 * 
 	 * @param image Input image type. DOES NOT NEED TO BE ImageFloat32, ImageUInt8 works too
 	 */
+	@SuppressWarnings("rawtypes")
 	public static <II extends ImageSingleBand> BufferedImage harder( ImageFloat32 image ) {
 		// SURF works off of integral images
 		Class<II> integralType = GIntegralImageOps.getIntegralType(ImageFloat32.class);

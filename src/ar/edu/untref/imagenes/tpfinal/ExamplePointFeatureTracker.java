@@ -1,3 +1,4 @@
+package ar.edu.untref.imagenes.tpfinal;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -34,6 +35,7 @@ import boofcv.struct.image.ImageSingleBand;
  *
  * @author Peter Abeles
  */
+@SuppressWarnings("rawtypes")
 public class ExamplePointFeatureTracker< T extends ImageSingleBand, D extends ImageSingleBand>
 {
 	// type of input image
@@ -125,6 +127,7 @@ public class ExamplePointFeatureTracker< T extends ImageSingleBand, D extends Im
 		tracker = FactoryPointTracker.dda_FH_SURF_Fast(configDetector, null, null, imageType);
 	}
  
+	@SuppressWarnings({ "unchecked" })
 	public static void main( String args[] ) throws FileNotFoundException {
  
 		Class imageType = ImageFloat32.class;
@@ -136,8 +139,6 @@ public class ExamplePointFeatureTracker< T extends ImageSingleBand, D extends Im
  
 		ExamplePointFeatureTracker app = new ExamplePointFeatureTracker(imageType);
  
-		// Comment or un-comment to change the type of tracker being used
-//		app.createKLT();
 		app.createSURF();
  
 		app.process(sequence);

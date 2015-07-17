@@ -1,5 +1,5 @@
+package ar.edu.untref.imagenes.tpfinal;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,6 +34,12 @@ public class Form extends JFrame{
 	private JMenu menuArchivo;
 	private JMenuItem menuOpenImage;
 	private JLabel labelPrincipalImage;
+	private JMenu menuSift;
+	
+	private JMenuItem menuAplicarSift;
+	
+	private File querySift;
+	private File targetSift;
 	
 	public Form(){
 
@@ -57,6 +62,12 @@ public class Form extends JFrame{
 
 		menuArchivo = new JMenu("Archivo");
 		menuBar.add(menuArchivo);
+		
+		menuSift = new JMenu("Sift");
+		menuBar.add(menuSift);
+		
+		menuAplicarSift = new JMenuItem("Aplicar Sift");
+		menuSift.add(menuAplicarSift);
 
 		menuOpenImage = new JMenuItem("Abrir Imagen");
 		menuArchivo.add(menuOpenImage);
@@ -66,6 +77,14 @@ public class Form extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				abrirImagen();
 			}
+		});
+		
+		menuAplicarSift.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				aplicarMetodoSift();
+			}
+
 		});
 	}
 
@@ -123,6 +142,39 @@ public class Form extends JFrame{
 		app.createSURF();
  
 		app.process(sequence);
+	}
+	
+	private void aplicarMetodoSift() {
+		this.seleccionarQuerySift();
+		this.seleccionarTargetSift();
+		
+		try {
+			Sift.aplicar(querySift, targetSift);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void seleccionarQuerySift() {
+		JFileChooser selector = new JFileChooser();
+		selector.setDialogTitle("Seleccione la primer imagen a comparar");
+
+		int flag = selector.showOpenDialog(null);
+
+		if (flag == JFileChooser.APPROVE_OPTION) {
+			this.querySift = selector.getSelectedFile();
+		}
+	}
+	
+	public void seleccionarTargetSift() {
+		JFileChooser selector = new JFileChooser();
+		selector.setDialogTitle("Seleccione la segunda imagen a comparar");
+
+		int flag = selector.showOpenDialog(null);
+
+		if (flag == JFileChooser.APPROVE_OPTION) {
+			this.targetSift = selector.getSelectedFile();
+		}
 	}
 
 }

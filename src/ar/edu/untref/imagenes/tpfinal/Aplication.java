@@ -1,3 +1,4 @@
+package ar.edu.untref.imagenes.tpfinal;
 import java.io.FileNotFoundException;
 
 public class Aplication {
@@ -6,6 +7,5 @@ public class Aplication {
 		 Form form = new Form();
 		 form.setVisible(true);
 	}
-	
 
 }
