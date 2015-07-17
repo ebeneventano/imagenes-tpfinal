@@ -38,6 +38,10 @@ public class Form extends JFrame{
 	
 	private JMenuItem menuAplicarSift;
 	
+	private JMenu menuPcaSift;
+	
+	private JMenuItem menuAplicarPcaSift;
+	
 	private File querySift;
 	private File targetSift;
 	
@@ -68,6 +72,11 @@ public class Form extends JFrame{
 		
 		menuAplicarSift = new JMenuItem("Aplicar Sift");
 		menuSift.add(menuAplicarSift);
+		
+		menuPcaSift = new JMenu("PCA - Sift");
+		menuAplicarPcaSift = new JMenuItem("Aplicar PCA - Sift");
+		menuPcaSift.add(menuAplicarPcaSift);
+		menuBar.add(menuPcaSift);
 
 		menuOpenImage = new JMenuItem("Abrir Imagen");
 		menuArchivo.add(menuOpenImage);
@@ -83,6 +92,14 @@ public class Form extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				aplicarMetodoSift();
+			}
+
+		});
+		
+		menuAplicarPcaSift.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				aplicarMetodoPcaSift();
 			}
 
 		});
@@ -177,4 +194,15 @@ public class Form extends JFrame{
 		}
 	}
 
+	private void aplicarMetodoPcaSift() {
+		this.seleccionarQuerySift();
+		this.seleccionarTargetSift();
+		
+		try {
+			PcaSift.aplicar(querySift, targetSift);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 }
